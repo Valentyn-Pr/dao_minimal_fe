@@ -1,7 +1,13 @@
+import { AppKitNetwork } from "@reown/appkit/networks";
+import { mainnet } from "viem/chains";
+import { hoodi } from "./customNetworks";
+import { WagmiAdapter } from "@reown/appkit-adapter-wagmi"
 
-// 0. Додаємо projectId
-
-// 1. додаємо помилку якщо !projectId
+// 0. reown projectId from .env
+export const projectId = import.meta.env.VITE_REOWN_PROJECT_ID;
+if (!projectId){
+  console.error("reown project id missed")
+}
 
 // 2. metadata - щоб гаманцю було зрозуміло, хто ти та що саме просиш.
 // metadata в AppKit/Web3Modal — це паспорт твого dApp, який летить у гаманець під час конекту
@@ -13,7 +19,12 @@ export const metadata = {
   icons: ['https://avatars.githubusercontent.com/u/179229932']
 }
 
-// 3. Прописуємо Networks які будемо використовувати
+// 3. networks that we plan to use
+export const networks = [mainnet ,hoodi] as [AppKitNetwork, ...AppKitNetwork[]];
 
+// 4. create WagmiAdapter. pass to adapter projectId та networks
 
-// 4. Створити WagmiAdapter і передати в нього projectId та networks
+export const wagmiAdapter = new WagmiAdapter({
+  projectId,
+  networks
+})
