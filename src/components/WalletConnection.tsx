@@ -1,8 +1,10 @@
 import { useAppKitAccount } from "@reown/appkit/react";
 import { useDisconnect } from "@reown/appkit/react";
+import { WalletAvatar } from "./Avatar";
+
 
 export function WalletConnection() {
-  const { isConnected } = useAppKitAccount();  
+  const { address, isConnected } = useAppKitAccount();  
   const { disconnect } = useDisconnect();
 
     const handleDisconnect = async () =>{
@@ -14,6 +16,11 @@ export function WalletConnection() {
     }
   return (
     <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                      
+      {isConnected && (
+          <WalletAvatar address={address as string}/>
+      )}
+
       <appkit-button />
       {isConnected && (
                 <div>

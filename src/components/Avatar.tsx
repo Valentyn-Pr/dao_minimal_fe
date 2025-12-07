@@ -8,7 +8,7 @@ export function WalletAvatar({ address }: { address: string | Addressable}) {
     <Blockies
       seed={address}
       size={10}
-      scale={5}
+      scale={3}
     />
   );
 }
