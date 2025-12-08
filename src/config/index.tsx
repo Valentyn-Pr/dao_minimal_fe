@@ -9,9 +9,7 @@ if (!projectId){
   console.error("reown project id missed")
 }
 
-// 2. metadata - щоб гаманцю було зрозуміло, хто ти та що саме просиш.
-// metadata в AppKit/Web3Modal — це паспорт твого dApp, який летить у гаманець під час конекту
-// через WalletConnect/адаптери.
+// 2. metadata
 export const metadata = {
   name: 'AppKit',
   description: 'Example',
@@ -23,7 +21,6 @@ export const metadata = {
 export const networks = [mainnet ,hoodi] as [AppKitNetwork, ...AppKitNetwork[]];
 
 // 4. create WagmiAdapter. pass to adapter projectId та networks
-
 export const wagmiAdapter = new WagmiAdapter({
   projectId,
   networks
