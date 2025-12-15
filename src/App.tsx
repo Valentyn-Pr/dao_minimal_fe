@@ -1,6 +1,5 @@
 import './App.css';
 import { Addressable, BrowserProvider, Contract, Eip1193Provider, parseUnits} from "ethers";
-import GOV_TOKEN_ABI from './abis/erc20_gov_token.json';
 import { WagmiProvider} from "wagmi";
 import { createAppKit } from '@reown/appkit';
 import { QueryClientProvider } from '@tanstack/react-query';
@@ -9,6 +8,7 @@ import { generalConfig } from './config/appConfig';
 import { queryClient } from './config/appConfig';
 import { WalletConnection } from './components/WalletConnection';
 import { DashBoard } from './components/Dashboard';
+import { BalanceDisplay } from './components/BalanceDisplay';
 
 
 const GOV_TOKEN_ADDRESS = import.meta.env.VITE_GOV_TOKEN_ADDR;
@@ -31,40 +31,6 @@ export function AppKitProvider({children}: {children: React.ReactNode}){
 }
 
 function App() {
-
-  // const [account, setAccount] = useState<string | null>(null);
-  // const [network, setNetwork] = useState<number | null>(null);
-
-  // connect to browser provider with pure ethers
-  // const connect = async () => {
-  //   // check if user has metamask or any other browser provider
-  //   if (!window.ethereum){
-  //     const msg = "No browser provider detected!";
-  //     console.error(msg);
-  //     alert(msg);
-  //   }
-
-  //   try{
-  //     const provider = new BrowserProvider(window.ethereum);
-
-  //     // requestAccounts performs connection to wallet
-  //     // when accounts only returns list of available accounts
-  //     const accounts = await provider.send("eth_requestAccounts", []);
-  //     setAccount(accounts[0]);
-
-  //     const walletNetwork = await provider.getNetwork();
-  //     setNetwork(Number(walletNetwork.chainId));
-
-  //     console.log("connected", {
-  //       account: account,
-  //       networkId: network,
-  //     })
-
-  //   } catch(e) {
-  //     console.error(e);
-  //   }
-
-  // }
 
   // move to helpers folder
   const sendTokens = async (
@@ -120,7 +86,8 @@ function App() {
       <AppKitProvider>
         <>
           <WalletConnection/>
-          <DashBoard></DashBoard>
+          <DashBoard/>
+          <BalanceDisplay/>
           {/*<button onClick={connect}>Connect wallet</button>*/}
           {/*<p>{account}</p>*/}
           {/*<p>{network ?? "-"}</p>*/}
@@ -132,3 +99,39 @@ function App() {
 }
 
 export default App
+
+
+/* // connect to browser provider with pure ethers
+  const [account, setAccount] = useState<string | null>(null);
+  const [network, setNetwork] = useState<number | null>(null);
+
+  const connect = async () => {
+    // check if user has metamask or any other browser provider
+    if (!window.ethereum){
+      const msg = "No browser provider detected!";
+      console.error(msg);
+      alert(msg);
+    }
+
+    try{
+      const provider = new BrowserProvider(window.ethereum);
+
+      // requestAccounts performs connection to wallet
+      // when accounts only returns list of available accounts
+      const accounts = await provider.send("eth_requestAccounts", []);
+      setAccount(accounts[0]);
+
+      const walletNetwork = await provider.getNetwork();
+      setNetwork(Number(walletNetwork.chainId));
+
+      console.log("connected", {
+        account: account,
+        networkId: network,
+      })
+
+    } catch(e) {
+      console.error(e);
+    }
+
+  } 
+*/
